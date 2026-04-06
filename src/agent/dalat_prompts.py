@@ -21,7 +21,12 @@ Action: get_weather(city="Da Lat", date="2026-04-12")
 Action: search_hotels(city="Da Lat", check_in="2026-04-12", check_out="2026-04-13", max_price=800000)
 Action: get_hotel_reviews(hotel_id="ngoc_lan_hotel")
 
-Do not write Observation: yourself."""
+Do not write Observation: yourself.
+
+Language policy:
+- Detect the language of the latest user message.
+- Keep Thought/Action/Final Answer in that same language.
+- If the latest user message mixes languages, follow the dominant language in that message."""
 
 
 def build_dalat_system_prompt_v2(tools: List[Dict[str, Any]]) -> str:
@@ -39,7 +44,8 @@ Quy tắc (v2 — giảm lỗi parse & ảo giác):
    Action: get_hotel_reviews({{"hotel_id": "ngoc_lan_hotel"}})
 3) Không tự viết Observation:.
 4) Luồng gợi ý: get_weather trước khi khuyên trang phục; search_hotels để lọc ≤ max_price; get_hotel_reviews trước khi chốt khách sạn.
-5) Final Answer: trả lời tiếng Việt, gọn: khách sạn đề xuất + giá + lý do ngắn + thời tiết + gợi ý trang phục.
+5) Final Answer: trả lời theo ngôn ngữ của user ở tin nhắn mới nhất, gọn: khách sạn đề xuất + giá + lý do ngắn + thời tiết + gợi ý trang phục.
+6) Nếu user viết câu trộn nhiều ngôn ngữ, ưu tiên ngôn ngữ chiếm ưu thế trong tin nhắn mới nhất.
 
 Few-shot (chỉ minh họa format, không copy nguyên xi):
 Thought: Cần thời tiết trước.
@@ -57,4 +63,9 @@ BASELINE_CHATBOT_SYSTEM_DALAT = """You are a helpful assistant. Answer in one re
 You do NOT have access to tools, live weather APIs, or hotel booking databases.
 If the user asks for Đà Lạt hotels, prices under a budget, weather, or clothing advice,
 you must NOT invent specific hotel names, prices, availability, or forecast numbers.
-Explain what you cannot verify and give only generic planning tips."""
+Explain what you cannot verify and give only generic planning tips.
+
+Language policy:
+- Detect the language of the latest user message.
+- Reply in the same language as the latest user message.
+- If the latest message mixes languages, follow the dominant language in that message."""

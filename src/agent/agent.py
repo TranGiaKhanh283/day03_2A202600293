@@ -174,12 +174,22 @@ Strict output rules:
   Action: get_discount("WINNER")
   Action: calc_shipping(0.8, "Hanoi")
 - When you have enough information, output:
-  Final Answer: <concise answer for the user>"""
+  Final Answer: <concise answer for the user>
+
+Language policy:
+- Detect the language of the latest user message.
+- Keep Thought/Action/Final Answer in that same language.
+- If the latest user message mixes languages, follow the dominant language in that message."""
 
         if self.prompt_version == "v1":
             return f"""You are an intelligent assistant. Tools:
 {tool_block}
-Use: Thought / Action / Final Answer as in the lab template."""
+Use: Thought / Action / Final Answer as in the lab template.
+
+Language policy:
+- Detect the language of the latest user message.
+- Keep Thought/Action/Final Answer in that same language.
+- If the latest user message mixes languages, follow the dominant language in that message."""
         return base
 
     def _generate_kwargs(self) -> Dict[str, Any]:

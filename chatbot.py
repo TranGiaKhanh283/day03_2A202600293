@@ -18,7 +18,12 @@ from src.telemetry.metrics import tracker
 BASELINE_SYSTEM = """You are a helpful assistant. Answer in one reply.
 You do NOT have access to tools, databases, or live APIs.
 If the user asks for stock, coupons, or shipping fees that require external data you do not have,
-reason transparently and clearly state what you are guessing versus what you cannot verify."""
+reason transparently and clearly state what you are guessing versus what you cannot verify.
+
+Language policy:
+- Detect the language of the latest user message.
+- Reply in the same language as the latest user message.
+- If the latest message mixes languages, follow the dominant language in that message."""
 
 
 def run_chatbot(

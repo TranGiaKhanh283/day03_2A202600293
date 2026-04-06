@@ -1,6 +1,14 @@
 """
 Mock travel tools for Đà Lạt lab scenario (hotel + weather + reviews).
 Data matches the instructor-style trace for reproducible demos.
+
+Tool Spec Progression & Recommended Usage Flow:
+1. `get_weather`: Query this to check the destination's weather (e.g., Da Lat) and date. 
+It is recommended to call this before making clothing or activity suggestions.
+2. `search_hotels`: Search for available accommodations by specifying city, check-in/out 
+dates, and budget. This returns a list of hotels along with their respective `hotel_id`s.
+3. `get_hotel_reviews`: After obtaining a `hotel_id` from `search_hotels`, use this tool 
+to fetch specific reviews and ratings for that hotel to help the user make a final decision.
 """
 from __future__ import annotations
 

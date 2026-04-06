@@ -53,6 +53,7 @@ The code is designed as a **Production Prototype**. It includes:
 
 ## 📊 Comparison Logs (for report scoring)
 
+Run `./run_lab_tests.sh` to run all test prompts.
 When you run `compare`, `dalat-compare`, or `benchmark`, the lab now writes:
 
 - `logs/YYYY-MM-DD.log`: low-level event traces

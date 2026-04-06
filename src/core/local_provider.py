@@ -1,6 +1,6 @@
 import time
 import os
-from typing import Dict, Any, Optional, Generator
+from typing import Dict, Any, Optional, Generator, List
 from llama_cpp import Llama
 from src.core.llm_provider import LLMProvider
 
@@ -30,7 +30,13 @@ class LocalProvider(LLMProvider):
             verbose=False
         )
 
-    def generate(self, prompt: str, system_prompt: Optional[str] = None) -> Dict[str, Any]:
+    def generate(
+        self,
+        prompt: str,
+        system_prompt: Optional[str] = None,
+        stop: Optional[List[str]] = None,
+        temperature: Optional[float] = None,
+    ) -> Dict[str, Any]:
         start_time = time.time()
         
         # Phi-3 / Llama-3 style formatting if not handled by a template
@@ -40,12 +46,16 @@ class LocalProvider(LLMProvider):
         else:
             full_prompt = f"<|user|>\n{prompt}<|end|>\n<|assistant|>"
 
-        response = self.llm(
-            full_prompt,
-            max_tokens=1024,
-            stop=["<|end|>", "Observation:"],
-            echo=False
-        )
+        stop_seqs = stop if stop is not None else ["<|end|>", "Observation:"]
+        call_kw: Dict[str, Any] = {
+            "max_tokens": 1024,
+            "stop": stop_seqs,
+            "echo": False,
+        }
+        if temperature is not None:
+            call_kw["temperature"] = float(temperature)
+
+        response = self.llm(full_prompt, **call_kw)
 
         end_time = time.time()
         latency_ms = int((end_time - start_time) * 1000)

@@ -1,7 +1,7 @@
 import os
 import time
 import google.generativeai as genai
-from typing import Dict, Any, Optional, Generator
+from typing import Dict, Any, List, Optional, Generator
 from src.core.llm_provider import LLMProvider
 
 class GeminiProvider(LLMProvider):
@@ -10,7 +10,13 @@ class GeminiProvider(LLMProvider):
         genai.configure(api_key=self.api_key)
         self.model = genai.GenerativeModel(model_name)
 
-    def generate(self, prompt: str, system_prompt: Optional[str] = None) -> Dict[str, Any]:
+    def generate(
+        self,
+        prompt: str,
+        system_prompt: Optional[str] = None,
+        stop: Optional[List[str]] = None,
+        temperature: Optional[float] = None,
+    ) -> Dict[str, Any]:
         start_time = time.time()
         
         # In Gemini, system instruction is passed during model initialization or as a prefix
@@ -19,18 +25,31 @@ class GeminiProvider(LLMProvider):
         if system_prompt:
             full_prompt = f"System: {system_prompt}\n\nUser: {prompt}"
 
-        response = self.model.generate_content(full_prompt)
+        cfg_kwargs: Dict[str, Any] = {}
+        if stop:
+            cfg_kwargs["stop_sequences"] = stop
+        if temperature is not None:
+            cfg_kwargs["temperature"] = temperature
+        gen_cfg = genai.types.GenerationConfig(**cfg_kwargs) if cfg_kwargs else None
+
+        response = self.model.generate_content(full_prompt, generation_config=gen_cfg)
 
         end_time = time.time()
         latency_ms = int((end_time - start_time) * 1000)
 
-        # Gemini usage data is in response.usage_metadata
-        content = response.text
-        usage = {
-            "prompt_tokens": response.usage_metadata.prompt_token_count,
-            "completion_tokens": response.usage_metadata.candidates_token_count,
-            "total_tokens": response.usage_metadata.total_token_count
-        }
+        try:
+            content = response.text
+        except ValueError:
+            content = ""
+        um = response.usage_metadata
+        if um is None:
+            usage = {"prompt_tokens": 0, "completion_tokens": 0, "total_tokens": 0}
+        else:
+            usage = {
+                "prompt_tokens": getattr(um, "prompt_token_count", 0) or 0,
+                "completion_tokens": getattr(um, "candidates_token_count", 0) or 0,
+                "total_tokens": getattr(um, "total_token_count", 0) or 0,
+            }
 
         return {
             "content": content,

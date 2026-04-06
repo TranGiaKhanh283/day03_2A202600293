@@ -1,4 +1,3 @@
-import os
 from abc import ABC, abstractmethod
 from typing import Dict, Any, List, Optional, Generator
 
@@ -13,7 +12,13 @@ class LLMProvider(ABC):
         self.api_key = api_key
 
     @abstractmethod
-    def generate(self, prompt: str, system_prompt: Optional[str] = None) -> Dict[str, Any]:
+    def generate(
+        self,
+        prompt: str,
+        system_prompt: Optional[str] = None,
+        stop: Optional[List[str]] = None,
+        temperature: Optional[float] = None,
+    ) -> Dict[str, Any]:
         """
         Produce a non-streaming completion.
         Returns:

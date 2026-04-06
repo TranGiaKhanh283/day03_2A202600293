@@ -15,7 +15,7 @@ def test_local_phi3():
     print(f"Model Path: {model_path}")
     
     if not os.path.exists(model_path):
-        print(f"❌ Error: Model file not found at {model_path}")
+        print(f"[ERROR] Model file not found at {model_path}")
         print("Please download it from Hugging Face and place it in the models/ folder.")
         return
 
@@ -28,10 +28,10 @@ def test_local_phi3():
         
         for chunk in provider.stream(prompt):
             print(chunk, end="", flush=True)
-        print("\n\n✅ Local Provider is working correctly!")
+        print("\n\n[OK] Local Provider is working correctly!")
         
     except Exception as e:
-        print(f"\n❌ Error during execution: {e}")
+        print(f"\n[ERROR] Error during execution: {e}")
 
 if __name__ == "__main__":
     test_local_phi3()

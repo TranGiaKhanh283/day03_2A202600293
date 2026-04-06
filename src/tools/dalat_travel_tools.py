@@ -7,14 +7,34 @@ from __future__ import annotations
 from typing import Any, Dict, List
 
 
+import requests
+
 def get_weather(city: str, date: str) -> str:
-    c = city.lower()
-    if "da lat" in c or "dalat" in c or "đà lạt" in city.lower():
-        return (
-            "Nhiệt độ 15-18°C, có mưa nhỏ chiều tối, độ ẩm 85%. "
-            f"(Dữ liệu demo cho {city}, ngày {date}.)"
-        )
-    return f"Chưa có dữ liệu thời tiết demo cho {city} ({date})."
+    try:
+        # 1. Gọi Nominatim API để lấy tọa độ thực tế (Geocoding)
+        geo_url = f"https://nominatim.openstreetmap.org/search?q={city}&format=json&limit=1"
+        geo_res = requests.get(geo_url, headers={"User-Agent": "Day3LabAgent/1.0"}, timeout=5)
+        if geo_res.status_code != 200 or not geo_res.json():
+            return f"Không tìm thấy tọa độ thực cho {city}."
+        
+        lat = geo_res.json()[0]["lat"]
+        lon = geo_res.json()[0]["lon"]
+        
+        # 2. Gọi Open-Meteo API để lấy thời tiết theo tọa độ
+        w_url = f"https://api.open-meteo.com/v1/forecast?latitude={lat}&longitude={lon}&daily=temperature_2m_max,temperature_2m_min,precipitation_sum&timezone=auto&start_date={date}&end_date={date}"
+        w_res = requests.get(w_url, timeout=5)
+        if w_res.status_code == 200:
+            data = w_res.json()
+            if "daily" in data and data["daily"]["time"]:
+                t_max = data["daily"]["temperature_2m_max"][0]
+                t_min = data["daily"]["temperature_2m_min"][0]
+                precip = data["daily"]["precipitation_sum"][0]
+                return f"[DỮ LIỆU THẬT] Thời tiết {city} ngày {date}: Tối thiểu {t_min}°C, Tối đa {t_max}°C. Lượng mưa: {precip}mm."
+            else:
+                return f"Ngày {date} nằm ngoài phạm vi hỗ trợ dự báo miễn phí của API Open-Meteo."
+        return f"Lỗi Open-Meteo API: HTTP {w_res.status_code}"
+    except Exception as e:
+        return f"Không thể kết nối API thời tiết. Lỗi: {str(e)}"
 
 
 def search_hotels(city: str, check_in: str, check_out: str, max_price: int) -> str:

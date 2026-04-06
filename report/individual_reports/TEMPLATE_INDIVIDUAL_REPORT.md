@@ -13,22 +13,20 @@ Provide API key
 
 ## II. Debugging Case Study (10 Points)
 
-**Quota Exceed** I create new gemini API key
+**Quota Exceed** I create new gemini API key, use the gemini-flash-2.5-lite model to prevent quota exceed, although it's less "smarter"
+**Local model phi3 installation errors** Google the error log and install required depedencies.
 ---
 
 ## III. Personal Insights: Chatbot vs ReAct (10 Points)
 
 **
-
+**models** I have tried various models: openai, gemini and local modeldel phi3. The local model can only generates 
 ---
 
 ## IV. Future Improvements (5 Points)
 
-*How would you scale this for a production-level AI agent system?*
-
-- **Scalability**: [e.g., Use an asynchronous queue for tool calls]
-- **Safety**: [e.g., Implement a 'Supervisor' LLM to audit the agent's actions]
-- **Performance**: [e.g., Vector DB for tool retrieval in a many-tool system]
+**Real-time data implements:** The provided data is stored in agents/dalat_prompts.py. I need to call the third API to get the real-time data.
+**Fixed problem**: This solution only apply for Dalat, and it has no UI to interact with user, get prompt from user, query with fixed prompt. I need to add a UI to interact with user, get prompt from user.
 
 ---
 

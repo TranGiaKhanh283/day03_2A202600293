@@ -1,0 +1,71 @@
+{"timestamp": "2026-04-06T09:48:47.749776", "event": "LLM_METRIC", "data": {"provider": "google", "model": "gemini-2.5-flash-lite", "prompt_tokens": 157, "completion_tokens": 860, "total_tokens": 1017, "latency_ms": 4336, "cost_estimate": 0.01017}}
+{"timestamp": "2026-04-06T09:48:47.778023", "event": "AGENT_START", "data": {"input": "T\u00ecm kh\u00e1ch s\u1ea1n \u1edf \u0110\u00e0 L\u1ea1t cho \u0111\u00eam th\u1ee9 B\u1ea3y 2026-04-12 (check-out 2026-04-13) d\u01b0\u1edbi 800000 VND/\u0111\u00eam. Ki\u1ec3m tra th\u1eddi ti\u1ebft ng\u00e0y 2026-04-12 v\u00e0 g\u1ee3i \u00fd trang ph\u1ee5c ph\u00f9 h\u1ee3p.", "model": "gemini-2.5-flash-lite", "prompt_version": "dalat_v1", "system_prompt_override": true}}
+{"timestamp": "2026-04-06T09:48:48.717912", "event": "LLM_METRIC", "data": {"provider": "google", "model": "gemini-2.5-flash-lite", "prompt_tokens": 395, "completion_tokens": 79, "total_tokens": 474, "latency_ms": 939, "cost_estimate": 0.00474}}
+{"timestamp": "2026-04-06T09:48:48.719577", "event": "TOOL_CALL", "data": {"tool": "search_hotels", "args": "city=\"Da Lat\", check_in=\"2026-04-12\", check_out=\"2026-04-13\", max_price=800000", "result_preview": "[1] Ng\u1ecdc Lan Hotel - 650000 VND/\u0111\u00eam - c\u00f2n ph\u00f2ng (hotel_id: ngoc_lan_hotel)\n[2] Mimosa Boutique - 750000 VND/\u0111\u00eam - c\u00f2n ph\u00f2ng (hotel_id: mimosa_boutique)\n[3] Sapa Lodge - 820000 VND/\u0111\u00eam - v\u01b0\u1ee3t ng\u00e2n s\u00e1ch (hotel_id: sapa_lodge)\n(check_in=2026-04-12, check_out=2026-04-13, max_price=800000 VND)"}}
+{"timestamp": "2026-04-06T09:48:49.947430", "event": "LLM_METRIC", "data": {"provider": "google", "model": "gemini-2.5-flash-lite", "prompt_tokens": 621, "completion_tokens": 135, "total_tokens": 756, "latency_ms": 1227, "cost_estimate": 0.00756}}
+{"timestamp": "2026-04-06T09:48:52.002940", "event": "TOOL_CALL", "data": {"tool": "get_weather", "args": "city=\"Da Lat\", date=\"2026-04-12\"", "result_preview": "[D\u1eee LI\u1ec6U TH\u1eacT] Th\u1eddi ti\u1ebft Da Lat ng\u00e0y 2026-04-12: T\u1ed1i thi\u1ec3u 18.4\u00b0C, T\u1ed1i \u0111a 26.2\u00b0C. L\u01b0\u1ee3ng m\u01b0a: 7.5mm."}}
+{"timestamp": "2026-04-06T09:48:54.276472", "event": "LLM_METRIC", "data": {"provider": "google", "model": "gemini-2.5-flash-lite", "prompt_tokens": 819, "completion_tokens": 368, "total_tokens": 1187, "latency_ms": 2273, "cost_estimate": 0.01187}}
+{"timestamp": "2026-04-06T09:48:54.276657", "event": "AGENT_END", "data": {"steps": 3, "outcome": "FINAL_ANSWER", "answer_preview": "Ch\u00e0o b\u1ea1n, t\u00f4i \u0111\u00e3 t\u00ecm \u0111\u01b0\u1ee3c m\u1ed9t s\u1ed1 kh\u00e1ch s\u1ea1n \u1edf \u0110\u00e0 L\u1ea1t cho \u0111\u00eam th\u1ee9 B\u1ea3y 2026-04-12 (check-out 2026-04-13) v\u1edbi gi\u00e1 d\u01b0\u1edbi 800.000 VND/\u0111\u00eam:"}}
+{"timestamp": "2026-04-06T09:48:54.276775", "event": "AGENT_START", "data": {"input": "T\u00ecm kh\u00e1ch s\u1ea1n \u1edf \u0110\u00e0 L\u1ea1t cho \u0111\u00eam th\u1ee9 B\u1ea3y 2026-04-12 (check-out 2026-04-13) d\u01b0\u1edbi 800000 VND/\u0111\u00eam. Ki\u1ec3m tra th\u1eddi ti\u1ebft ng\u00e0y 2026-04-12 v\u00e0 g\u1ee3i \u00fd trang ph\u1ee5c ph\u00f9 h\u1ee3p.", "model": "gemini-2.5-flash-lite", "prompt_version": "dalat_v2", "system_prompt_override": true}}
+{"timestamp": "2026-04-06T09:48:55.305205", "event": "LLM_METRIC", "data": {"provider": "google", "model": "gemini-2.5-flash-lite", "prompt_tokens": 586, "completion_tokens": 82, "total_tokens": 668, "latency_ms": 1028, "cost_estimate": 0.00668}}
+{"timestamp": "2026-04-06T09:48:55.305497", "event": "TOOL_CALL", "data": {"tool": "search_hotels", "args": "{\"city\": \"Da Lat\", \"check_in\": \"2026-04-12\", \"check_out\": \"2026-04-13\", \"max_price\": 800000}", "result_preview": "[1] Ng\u1ecdc Lan Hotel - 650000 VND/\u0111\u00eam - c\u00f2n ph\u00f2ng (hotel_id: ngoc_lan_hotel)\n[2] Mimosa Boutique - 750000 VND/\u0111\u00eam - c\u00f2n ph\u00f2ng (hotel_id: mimosa_boutique)\n[3] Sapa Lodge - 820000 VND/\u0111\u00eam - v\u01b0\u1ee3t ng\u00e2n s\u00e1ch (hotel_id: sapa_lodge)\n(check_in=2026-04-12, check_out=2026-04-13, max_price=800000 VND)"}}
+{"timestamp": "2026-04-06T09:48:56.515294", "event": "LLM_METRIC", "data": {"provider": "google", "model": "gemini-2.5-flash-lite", "prompt_tokens": 815, "completion_tokens": 114, "total_tokens": 929, "latency_ms": 1209, "cost_estimate": 0.00929}}
+{"timestamp": "2026-04-06T09:48:58.036158", "event": "TOOL_CALL", "data": {"tool": "get_weather", "args": "{\"city\": \"Da Lat\", \"date\": \"2026-04-12\"}", "result_preview": "[D\u1eee LI\u1ec6U TH\u1eacT] Th\u1eddi ti\u1ebft Da Lat ng\u00e0y 2026-04-12: T\u1ed1i thi\u1ec3u 18.4\u00b0C, T\u1ed1i \u0111a 26.2\u00b0C. L\u01b0\u1ee3ng m\u01b0a: 7.5mm."}}
+{"timestamp": "2026-04-06T09:48:59.367120", "event": "LLM_METRIC", "data": {"provider": "google", "model": "gemini-2.5-flash-lite", "prompt_tokens": 992, "completion_tokens": 173, "total_tokens": 1165, "latency_ms": 1330, "cost_estimate": 0.01165}}
+{"timestamp": "2026-04-06T09:48:59.367369", "event": "AGENT_END", "data": {"steps": 3, "outcome": "FINAL_ANSWER", "answer_preview": "T\u00f4i \u0111\u1ec1 xu\u1ea5t kh\u00e1ch s\u1ea1n Ng\u1ecdc Lan Hotel v\u1edbi gi\u00e1 650000 VND/\u0111\u00eam. Kh\u00e1ch s\u1ea1n n\u00e0y c\u00f2n ph\u00f2ng v\u00e0 n\u1eb1m trong ng\u00e2n s\u00e1ch c\u1ee7a b\u1ea1n. Ng\u00e0y 2026-04-12 t\u1ea1i \u0110\u00e0 L\u1ea1t d\u1ef1 ki\u1ebfn c\u00f3 nhi\u1ec7t \u0111\u1ed9 t\u1eeb 18.4\u00b0C \u0111\u1ebfn 26.2\u00b0C, tr\u1eddi nhi\u1ec1u m\u00e2y v\u00e0 c\u00f3 kh\u1ea3 n\u0103ng m\u01b0a nh\u1eb9 v\u00e0o bu\u1ed5i chi\u1ec1u. B\u1ea1n n\u00ean chu\u1ea9n b\u1ecb \u00e1o kho\u00e1c m\u1ecfng, \u00e1o d\u00e0i tay, qu\u1ea7n d\u00e0i v\u00e0 m\u1ed9t chi\u1ebfc \u00f4 ho\u1eb7c \u00e1o m\u01b0a m\u1ecfng \u0111\u1ec3 \u0111\u1ed1i ph\u00f3 v\u1edbi th\u1eddi ti\u1ebft se l\u1ea1nh v\u00e0 m\u01b0a b\u1ea5t ch\u1ee3t."}}
+{"timestamp": "2026-04-06T09:48:59.367648", "event": "LAB_DALAT_COMPARE", "data": {"question": "T\u00ecm kh\u00e1ch s\u1ea1n \u1edf \u0110\u00e0 L\u1ea1t cho \u0111\u00eam th\u1ee9 B\u1ea3y 2026-04-12 (check-out 2026-04-13) d\u01b0\u1edbi 800000 VND/\u0111\u00eam. Ki\u1ec3m tra th\u1eddi ti\u1ebft ng\u00e0y 2026-04-12 v\u00e0 g\u1ee3i \u00fd trang ph\u1ee5c ph\u00f9 h\u1ee3p.", "provider": "google", "chatbot_tokens": 1017, "agent_v1_tokens": 2417, "agent_v2_tokens": 2762, "chatbot_cost_usd": 0.01017, "agent_v1_cost_usd": 0.02417, "agent_v2_cost_usd": 0.02762, "chatbot_requests": 1, "agent_v1_requests": 3, "agent_v2_requests": 3}}
+=== Baseline chatbot (no tools, Đà Lạt-aware system prompt) ===
+
+Xin lỗi, tôi không thể kiểm tra giá phòng khách sạn cụ thể, tình trạng phòng trống hoặc dự báo thời tiết chính xác cho một ngày trong tương lai. Các thông tin này thường xuyên thay đổi và cần truy cập vào các hệ thống đặt phòng và thời tiết trực tiếp.
+
+Tuy nhiên, tôi có thể đưa ra một số lời khuyên chung để bạn chuẩn bị cho chuyến đi Đà Lạt của mình:
+
+**Về việc tìm khách sạn dưới 800.000 VNĐ/đêm cho đêm thứ Bảy ngày 12/04/2026:**
+
+*   **Thời điểm đặt phòng:** Tháng 4 thường là mùa du lịch ở Đà Lạt, nên giá phòng có thể cao hơn. Để có giá tốt, bạn nên đặt phòng sớm, đặc biệt là cho đêm thứ Bảy.
+*   **Các loại hình lưu trú:** Với ngân sách dưới 800.000 VNĐ/đêm, bạn có thể tìm thấy nhiều lựa chọn như:
+    *   **Khách sạn tầm trung:** Nhiều khách sạn 2-3 sao ở khu vực trung tâm hoặc gần các điểm du lịch sẽ có mức giá này.
+    *   **Homestay/Villa:** Đà Lạt có rất nhiều homestay và villa xinh xắn với phong cách đa dạng, nhiều nơi có phòng đôi hoặc phòng cho nhóm nhỏ với giá hợp lý.
+    *   **Căn hộ cho thuê:** Nếu đi nhóm đông, thuê căn hộ có thể là lựa chọn tiết kiệm.
+*   **Khu vực lưu trú:**
+    *   **Trung tâm thành phố:** Thuận tiện di chuyển, gần chợ đêm, nhà hàng, quán cà phê.
+    *   **Khu vực ngoại ô/gần đồi thông:** Yên tĩnh, không khí trong lành, cảnh quan đẹp hơn nhưng có thể cần di chuyển xa hơn để đến các điểm tham quan chính.
+*   **Cách tìm kiếm:** Bạn có thể sử dụng các trang web đặt phòng trực tuyến uy tín như Booking.com, Agoda, Traveloka, hoặc các ứng dụng đặt phòng khác. Hãy nhập ngày bạn muốn ở và lọc theo mức giá dưới 800.000 VNĐ/đêm. Đọc kỹ các đánh giá của khách hàng trước đó để có cái nhìn khách quan về chất lượng.
+
+**Về thời tiết Đà Lạt tháng 4 và gợi ý trang phục:**
+
+*   **Thời tiết tháng 4 ở Đà Lạt:** Tháng 4 thường là thời điểm giao mùa giữa mùa khô và mùa mưa ở Đà Lạt.
+    *   **Ban ngày:** Trời thường nắng ấm, nhiệt độ dao động khoảng 20-25°C. Tuy nhiên, nắng có thể khá gắt.
+    *   **Buổi tối và sáng sớm:** Thời tiết se lạnh, nhiệt độ có thể xuống khoảng 15-18°C, đôi khi thấp hơn.
+    *   **Khả năng có mưa:** Mặc dù chưa phải mùa mưa chính thức, nhưng đôi khi có thể có những cơn mưa rào bất chợt, đặc biệt là vào buổi chiều.
+*   **Gợi ý trang phục:**
+    *   **Lớp áo:** Mang theo áo khoác mỏng hoặc áo cardigan để mặc vào buổi tối và sáng sớm. Một chiếc áo gió nhẹ cũng rất hữu ích để chống lại gió lạnh và đề phòng mưa bất chợt.
+    *   **Quần áo ban ngày:** Quần jeans, quần kaki, váy dài, áo thun, áo sơ mi là phù hợp cho ban ngày.
+    *   **Giày dép:** Nên mang giày thể thao hoặc giày bệt thoải mái để tiện di chuyển, đi bộ tham quan.
+    *   **Phụ kiện:** Khăn choàng mỏng có thể giúp giữ ấm và tạo điểm nhấn cho trang phục. Mũ hoặc nón rộng vành để che nắng ban ngày.
+    *   **Đề phòng mưa:** Một chiếc ô nhỏ gọn hoặc áo mưa mỏng sẽ rất hữu ích.
+
+Chúc bạn có một chuyến đi Đà Lạt vui vẻ và đáng nhớ!
+
+=== Agent v1 — minimal ReAct instructions + key=value Actions ===
+
+Chào bạn, tôi đã tìm được một số khách sạn ở Đà Lạt cho đêm thứ Bảy 2026-04-12 (check-out 2026-04-13) với giá dưới 800.000 VND/đêm:
+
+=== Agent v2 — stricter prompt, JSON Actions, tool-order guardrails ===
+
+Tôi đề xuất khách sạn Ngọc Lan Hotel với giá 650000 VND/đêm. Khách sạn này còn phòng và nằm trong ngân sách của bạn. Ngày 2026-04-12 tại Đà Lạt dự kiến có nhiệt độ từ 18.4°C đến 26.2°C, trời nhiều mây và có khả năng mưa nhẹ vào buổi chiều. Bạn nên chuẩn bị áo khoác mỏng, áo dài tay, quần dài và một chiếc ô hoặc áo mưa mỏng để đối phó với thời tiết se lạnh và mưa bất chợt.
+
+=== Token / cost summary (see logs/ for full traces) ===
+{
+  "question": "Tìm khách sạn ở Đà Lạt cho đêm thứ Bảy 2026-04-12 (check-out 2026-04-13) dưới 800000 VND/đêm. Kiểm tra thời tiết ngày 2026-04-12 và gợi ý trang phục phù hợp.",
+  "provider": "google",
+  "chatbot_tokens": 1017,
+  "agent_v1_tokens": 2417,
+  "agent_v2_tokens": 2762,
+  "chatbot_cost_usd": 0.01017,
+  "agent_v1_cost_usd": 0.02417,
+  "agent_v2_cost_usd": 0.02762,
+  "chatbot_requests": 1,
+  "agent_v1_requests": 3,
+  "agent_v2_requests": 3
+}

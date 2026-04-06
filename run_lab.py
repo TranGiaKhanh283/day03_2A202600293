@@ -24,6 +24,7 @@ from src.agent.agent import ReActAgent
 from src.core.provider_factory import create_llm_from_env
 from src.telemetry.logger import logger
 from src.telemetry.metrics import tracker
+from src.telemetry.reporting import append_compare_csv, append_experiment_record
 from src.agent.dalat_prompts import (
     BASELINE_CHATBOT_SYSTEM_DALAT,
     DALAT_SCENARIO_QUERY_VI,
@@ -65,6 +66,15 @@ def cmd_chatbot(args: argparse.Namespace) -> None:
     ans = baseline_chatbot.run_chatbot(args.question, provider=args.provider)
     print(ans)
     logger.log_event("LAB_CHATBOT_DONE", {"summary": tracker.summarize_session()})
+    append_experiment_record(
+        {
+            "event": "LAB_CHATBOT_DONE",
+            "mode": "chatbot",
+            "provider": args.provider,
+            "question": args.question,
+            "summary": tracker.summarize_session(),
+        }
+    )
 
 
 def cmd_agent(args: argparse.Namespace) -> None:
@@ -75,6 +85,16 @@ def cmd_agent(args: argparse.Namespace) -> None:
     logger.log_event(
         "LAB_AGENT_DONE",
         {"summary": tracker.summarize_session(), "prompt_version": args.prompt_version},
+    )
+    append_experiment_record(
+        {
+            "event": "LAB_AGENT_DONE",
+            "mode": "agent",
+            "provider": args.provider,
+            "question": args.question,
+            "prompt_version": args.prompt_version,
+            "summary": tracker.summarize_session(),
+        }
     )
 
 
@@ -100,6 +120,36 @@ def cmd_compare(args: argparse.Namespace) -> None:
     print("\n=== Comparison (see logs/ for traces) ===")
     print(json.dumps(row, indent=2))
     logger.log_event("LAB_COMPARE", row)
+    append_experiment_record(
+        {
+            "event": "LAB_COMPARE",
+            "mode": "compare",
+            "provider": args.provider,
+            "prompt_version": args.prompt_version,
+            "question": args.question,
+            "comparison": row,
+            "chatbot_metrics": chat_metrics,
+            "agent_metrics": agent_metrics,
+        }
+    )
+    append_compare_csv(
+        {
+            "scenario": "compare",
+            "provider": args.provider or os.getenv("DEFAULT_PROVIDER") or "openai",
+            "prompt_version": args.prompt_version,
+            "question": args.question,
+            "chatbot_requests": chat_metrics.get("requests"),
+            "chatbot_tokens": chat_metrics.get("total_tokens"),
+            "chatbot_cost_usd": chat_metrics.get("total_cost_estimate_usd"),
+            "chatbot_latency_p50_ms": chat_metrics.get("latency_ms_p50"),
+            "chatbot_latency_p99_ms": chat_metrics.get("latency_ms_p99"),
+            "agent_requests": agent_metrics.get("requests"),
+            "agent_tokens": agent_metrics.get("total_tokens"),
+            "agent_cost_usd": agent_metrics.get("total_cost_estimate_usd"),
+            "agent_latency_p50_ms": agent_metrics.get("latency_ms_p50"),
+            "agent_latency_p99_ms": agent_metrics.get("latency_ms_p99"),
+        }
+    )
 
 
 def cmd_dalat_compare(args: argparse.Namespace) -> None:
@@ -164,6 +214,41 @@ def cmd_dalat_compare(args: argparse.Namespace) -> None:
     print("\n=== Token / cost summary (see logs/ for full traces) ===")
     print(json.dumps(row, indent=2, ensure_ascii=False))
     logger.log_event("LAB_DALAT_COMPARE", row)
+    append_experiment_record(
+        {
+            "event": "LAB_DALAT_COMPARE",
+            "mode": "dalat-compare",
+            "provider": prov,
+            "question": q,
+            "comparison": row,
+            "chatbot_metrics": m_chat,
+            "agent_v1_metrics": m_v1,
+            "agent_v2_metrics": m_v2,
+        }
+    )
+    append_compare_csv(
+        {
+            "scenario": "dalat-compare",
+            "provider": prov,
+            "prompt_version": "v1_vs_v2",
+            "question": q,
+            "chatbot_requests": m_chat.get("requests"),
+            "chatbot_tokens": m_chat.get("total_tokens"),
+            "chatbot_cost_usd": m_chat.get("total_cost_estimate_usd"),
+            "chatbot_latency_p50_ms": m_chat.get("latency_ms_p50"),
+            "chatbot_latency_p99_ms": m_chat.get("latency_ms_p99"),
+            "agent_v1_requests": m_v1.get("requests"),
+            "agent_v1_tokens": m_v1.get("total_tokens"),
+            "agent_v1_cost_usd": m_v1.get("total_cost_estimate_usd"),
+            "agent_v1_latency_p50_ms": m_v1.get("latency_ms_p50"),
+            "agent_v1_latency_p99_ms": m_v1.get("latency_ms_p99"),
+            "agent_v2_requests": m_v2.get("requests"),
+            "agent_v2_tokens": m_v2.get("total_tokens"),
+            "agent_v2_cost_usd": m_v2.get("total_cost_estimate_usd"),
+            "agent_v2_latency_p50_ms": m_v2.get("latency_ms_p50"),
+            "agent_v2_latency_p99_ms": m_v2.get("latency_ms_p99"),
+        }
+    )
 
 
 def cmd_benchmark(args: argparse.Namespace) -> None:
@@ -183,6 +268,15 @@ def cmd_benchmark(args: argparse.Namespace) -> None:
             print(run_agent(q, args.provider, args.prompt_version))
             results.append({"case": name, "mode": "agent", "metrics": tracker.summarize_session()})
     logger.log_event("LAB_BENCHMARK", {"runs": results})
+    append_experiment_record(
+        {
+            "event": "LAB_BENCHMARK",
+            "mode": "benchmark",
+            "provider": args.provider,
+            "prompt_version": args.prompt_version,
+            "runs": results,
+        }
+    )
 
 
 def build_parser() -> argparse.ArgumentParser:

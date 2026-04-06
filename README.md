@@ -51,6 +51,16 @@ The code is designed as a **Production Prototype**. It includes:
 - **Robust Provider Pattern**: Easily extendable to any LLM API.
 - **Clean Skeletons**: Focus on the logic that matters—the agent's reasoning process.
 
+## 📊 Comparison Logs (for report scoring)
+
+When you run `compare`, `dalat-compare`, or `benchmark`, the lab now writes:
+
+- `logs/YYYY-MM-DD.log`: low-level event traces
+- `logs/experiments.jsonl`: one structured record per run
+- `logs/compare_summary.csv`: table-ready metrics (tokens, latency, cost) for chatbot vs agent
+
+This makes it easy to fill **Tool Design Evolution**, **Trace Quality**, and **Evaluation & Analysis** sections in the group report.
+
 ---
 
 *Happy Coding! Let's build agents that actually work.*

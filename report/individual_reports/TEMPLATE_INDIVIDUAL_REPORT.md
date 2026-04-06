@@ -8,6 +8,7 @@
 
 ## I. Technical Contribution (15 Points)
 Provide API key
+Vibe coding and fix errors for generating v2 tools 
 
 ---
 
@@ -20,12 +21,13 @@ Provide API key
 ## III. Personal Insights: Chatbot vs ReAct (10 Points)
 
 **
-**models** I have tried various models: openai, gemini and local modeldel phi3. The local model can only generates 
+**models** I have tried various models: openai, gemini and local modeldel phi3. The local model can only generates english reponses cause it ứa trained based on English. 
+
 ---
 
 ## IV. Future Improvements (5 Points)
 
-**Real-time data implements:** The provided data is stored in agents/dalat_prompts.py. I need to call the third API to get the real-time data.
+**Real-time data implements:** The provided data is stored in agents/dalat_travels_tools.py as fixed strings. Threrefore, I need to call the third API to get the real-time data.
 **Fixed problem**: This solution only apply for Dalat, and it has no UI to interact with user, get prompt from user, query with fixed prompt. I need to add a UI to interact with user, get prompt from user.
 
 ---

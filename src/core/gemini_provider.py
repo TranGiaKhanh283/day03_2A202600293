@@ -1,14 +1,16 @@
 import os
 import time
-import google.generativeai as genai
+from google import genai
 from typing import Dict, Any, List, Optional, Generator
 from src.core.llm_provider import LLMProvider
 
 class GeminiProvider(LLMProvider):
-    def __init__(self, model_name: str = "gemini-1.5-flash", api_key: Optional[str] = None):
+    def __init__(self, model_name: str = "gemini-2.5-flash-lite", api_key: Optional[str] = None):
         super().__init__(model_name, api_key)
-        genai.configure(api_key=self.api_key)
-        self.model = genai.GenerativeModel(model_name)
+        if not self.api_key:
+            self.api_key = os.getenv("GEMINI_API_KEY")
+        self.client = genai.Client(api_key=self.api_key)
+        self.model_name = model_name
 
     def generate(
         self,
@@ -19,20 +21,21 @@ class GeminiProvider(LLMProvider):
     ) -> Dict[str, Any]:
         start_time = time.time()
         
-        # In Gemini, system instruction is passed during model initialization or as a prefix
-        # For simplicity in this lab, we'll prepend it if provided
-        full_prompt = prompt
-        if system_prompt:
-            full_prompt = f"System: {system_prompt}\n\nUser: {prompt}"
-
-        cfg_kwargs: Dict[str, Any] = {}
+        cfg_kwargs = {}
         if stop:
             cfg_kwargs["stop_sequences"] = stop
         if temperature is not None:
             cfg_kwargs["temperature"] = temperature
-        gen_cfg = genai.types.GenerationConfig(**cfg_kwargs) if cfg_kwargs else None
+        if system_prompt:
+            cfg_kwargs["system_instruction"] = system_prompt
+            
+        gen_cfg = genai.types.GenerateContentConfig(**cfg_kwargs) if cfg_kwargs else None
 
-        response = self.model.generate_content(full_prompt, generation_config=gen_cfg)
+        response = self.client.models.generate_content(
+            model=self.model_name,
+            contents=prompt,
+            config=gen_cfg
+        )
 
         end_time = time.time()
         latency_ms = int((end_time - start_time) * 1000)
@@ -41,6 +44,7 @@ class GeminiProvider(LLMProvider):
             content = response.text
         except ValueError:
             content = ""
+            
         um = response.usage_metadata
         if um is None:
             usage = {"prompt_tokens": 0, "completion_tokens": 0, "total_tokens": 0}
@@ -59,10 +63,18 @@ class GeminiProvider(LLMProvider):
         }
 
     def stream(self, prompt: str, system_prompt: Optional[str] = None) -> Generator[str, None, None]:
-        full_prompt = prompt
+        cfg_kwargs = {}
         if system_prompt:
-            full_prompt = f"System: {system_prompt}\n\nUser: {prompt}"
+            cfg_kwargs["system_instruction"] = system_prompt
+            
+        gen_cfg = genai.types.GenerateContentConfig(**cfg_kwargs) if cfg_kwargs else None
 
-        response = self.model.generate_content(full_prompt, stream=True)
-        for chunk in response:
-            yield chunk.text
+        response_stream = self.client.models.generate_content_stream(
+            model=self.model_name,
+            contents=prompt,
+            config=gen_cfg
+        )
+        
+        for chunk in response_stream:
+            if chunk.text:
+                yield chunk.text

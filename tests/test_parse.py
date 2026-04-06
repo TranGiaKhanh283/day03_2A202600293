@@ -1,3 +1,7 @@
+import sys
+import os
+sys.path.append(os.path.join(os.path.dirname(__file__), ".."))
+
 from src.agent.agent import (
     kwargs_from_blob,
     normalize_arg_tokens,
